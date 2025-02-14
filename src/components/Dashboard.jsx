@@ -36,6 +36,7 @@ export default function Dashboard() {
          </div>
            
            <div className="flex flex-col w-12/12 ">
+           
            <ProgressBar percentile={statistics.percentile} />
 
            </div>

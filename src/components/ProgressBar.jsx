@@ -40,8 +40,30 @@ const ComparisonGraph = ({ percentile }) => {
               <Tooltip />
               <Line type="monotone" dataKey="y" stroke="#7B61FF" dot={{ fill: "purple", r: 4 }} />
 
-              <ReferenceLine x={percentile} stroke="red" label={{ value: `${percentile}%` }} />
-              <ReferenceLine x={72} stroke="green" label={{ value: "72%" }} />
+              <ReferenceLine
+                x={percentile}
+                stroke="red"
+                label={{
+                  value: `${percentile}%`,
+                  position: "top",
+                  fill: "red",
+                  fontSize: 12,
+                  fontWeight: "bold",
+                }}
+              />
+
+              {/* Static Reference Line for Average (72%) */}
+              <ReferenceLine
+                x={72}
+                stroke="green"
+                label={{
+                  value: "72%",
+                  position: "top",
+                  fill: "green",
+                  fontSize: 12,
+                  fontWeight: "bold",
+                }}
+              />
              
             </LineChart>
           </ResponsiveContainer>
