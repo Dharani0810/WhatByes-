@@ -6,59 +6,50 @@ import ProgressBar from "./ProgressBar";
 import SyllabusAnalysis from "./SyllabusAnalysis";
 import QuestionAnalysis from "./QuestionAnalysis";
 import UpdateScoreModel from "./UpdateScoreModel";
+
 export default function Dashboard() {
-    const [statistics, setStatistics] = useState({
-      rank: 0,
-      percentile: 50, // Default percentile
-      correctAnswers: 0,
-    });
-  
-    const [showModal, setShowModal] = useState(false);
-  
-    const updateQuickStatistics = (newData) => {
-      setStatistics((prev) => ({ ...prev, ...newData }));
-    };
-     const handleSave = (newData) => {
-    setCorrectAnswers(parseInt(newData.correctAnswers)); // Ensure it's a number
+  const [statistics, setStatistics] = useState({
+    rank: 0,
+    percentile: 50, // Default percentile
+    correctAnswers: 0,
+  });
+
+  const updateQuickStatistics = (newData) => {
+    setStatistics((prev) => ({ ...prev, ...newData }));
   };
-  
-    return (
-       <div className="flex flex-row h-full space-x-3 ">
-      <div className="  h-full w-7/12 space-y-7 ">
 
-       
-        <div className="flex flex-col w-12/12  rounded-md">
-         <SkillTestCard updateQuickStatistics={updateQuickStatistics} />
-         </div>
+  return (
+    <div className="flex flex-col md:flex-row gap-4 p-4">
+      {/* Left Side (Main Content) */}
+      <div className="w-full md:w-7/12 flex flex-col gap-6">
+        {/* Skill Test Card */}
+        <div className="w-full">
+          <SkillTestCard updateQuickStatistics={updateQuickStatistics} />
+        </div>
 
-         <div className="flex flex-col w-12/12  ">
-         <QuickStatistics {...statistics} />
-         </div>
-           
-           <div className="flex flex-col w-12/12 ">
-           
-           <ProgressBar percentile={statistics.percentile} />
+        {/* Quick Statistics */}
+        <div className="w-full">
+          <QuickStatistics {...statistics} />
+        </div>
 
-           </div>
-          
-            </div>
-          <div className="h-full w-5/12 px-2 space-y-10 ">
-          <div className="flex flex-col w-12/12 h-2/5 ">
-          <SyllabusAnalysis />
-          </div>
-
-          <div className="flex flex-col w-12/12 h-3/5  ">
-          <QuestionAnalysis correctAnswers={statistics.correctAnswers} totalQuestions={15} />
-          </div>
-
-          
-          </div>
-           
-          
-   
-
+        {/* Progress Bar */}
+        <div className="w-full">
+          <ProgressBar percentile={statistics.percentile} />
+        </div>
       </div>
 
-     
-    );
-  }
+      {/* Right Side (Analysis Section) */}
+      <div className="w-full md:w-5/12 flex flex-col gap-6">
+        {/* Syllabus Analysis */}
+        <div className="w-full">
+          <SyllabusAnalysis />
+        </div>
+
+        {/* Question Analysis */}
+        <div className="w-full">
+          <QuestionAnalysis correctAnswers={statistics.correctAnswers} totalQuestions={15} />
+        </div>
+      </div>
+    </div>
+  );
+}
